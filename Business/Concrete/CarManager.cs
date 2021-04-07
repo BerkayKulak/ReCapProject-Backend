@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -16,9 +18,14 @@ namespace Business.Concrete
             _carDal = carDal;// bağımlılığı azalttık intefaceden alıyoruz
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            if(DateTime.Now.Hour == 22)
+             {
+                return new ErrorDataResult();
+            }
+
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),true,"Ürünler Listelendi");
         }
 
         public List<Car> GetCarsByBrandId(int brandId)
@@ -31,20 +38,22 @@ namespace Business.Concrete
             return _carDal.GetAll(c => c.ColorId == colorId);
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
 
-            if (car.Description.Length < 3)
-            {
-                Console.WriteLine("Açıklama en az iki karakter olmalı");
+            if (car.Description.Length < 2)
+            {   
+                // magic strings
+                return new ErrorResult(Messages.CarNameInvalid);
             }
             else if (car.DailyPrice < 1)
             {
-                Console.WriteLine("Araba günlük kiralama fiyatı 0 TL den büyük olmalı");
+                return new ErrorResult(Messages.CarRent);
             }
             else
             {
                 _carDal.Add(car);
+                return new SuccessResult(Messages.CarAdded);
             }
 
         }
@@ -62,6 +71,11 @@ namespace Business.Concrete
         public List<CarDetailDto> GetCarDetails()
         {
             return _carDal.GetCarDetails();
+        }
+
+        public Car getById(int carId)
+        {
+            return _carDal.Get(p=>p.CarId== carId);
         }
     }
 }
