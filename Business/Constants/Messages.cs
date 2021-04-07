@@ -15,5 +15,13 @@ namespace Business.Constants
         public static string CarDeleted = "Ürün silindi";
         internal static string MaintenanceTime = "Sistem Bakımda";
         internal static string CarListed = "Ürünler Listelendi";
+        internal static string ColorDeleted = "Renk silindi";
+        internal static string ColorsListed = "Renkler listelendi";
+        internal static string ColorAdded = "Renkler Eklendi";
+        internal static string ColorUpdated = "Renkler Güncellendi";
+        internal static string BrandDeleted = "Marka silindi";
+        internal static string BrandsListed = "Markalar listelendi";
+        internal static string BrandAdded = "Marka eklendi";
+        internal static string BrandUpdated = "Marka güncellendi";
     }
 }
