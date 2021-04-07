@@ -11,6 +11,8 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
+            CarTest();
+
             //DTO = Data transformation object => taşıyacağımız objeler
             // Ioc
 
@@ -22,7 +24,7 @@ namespace ConsoleUI
             }*/
 
 
-            CarManager carManager1 = new CarManager(new EfCarDal());
+            /*CarManager carManager1 = new CarManager(new EfCarDal());
 
             foreach (var car in carManager1.GetCarDetails())
             {
@@ -85,7 +87,7 @@ namespace ConsoleUI
             Console.Write("Lütfen Yıl Giriniz:");
             car2.ModelYear = Convert.ToString(Console.ReadLine());
             carManager4.Add(car2);
-            Console.WriteLine("Araç eklendi");
+            Console.WriteLine("Araç eklendi");*/
 
 
 
@@ -181,6 +183,28 @@ namespace ConsoleUI
             carManager.Add(car);*/
 
 
+        }
+
+        private static void CarTest()
+        {
+ 
+            CarManager carManager = new CarManager(new EfCarDal());
+
+            var result = carManager.GetCarDetails();
+
+            if (result.Success == true)
+            {
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.CarName + "/" + car.ColorName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+            
         }
     }
 }
