@@ -12,17 +12,16 @@ namespace DataAccess.Concrete.InMemory
     public class InMemoryCarDal : ICarDal
     {
         List<Car> _cars;
+
         public InMemoryCarDal()
         {
             _cars = new List<Car>
             {
-                new Car{CarId=1,BrandId=1,ColorId=1,ModelYear="2018",DailyPrice=245,Description="Binek BMW M3 kırmızı 2018 model günlüğü 245 tl"},
-                new Car{CarId=1,BrandId=3,ColorId=3,ModelYear="2020",DailyPrice=245,Description="Binek Volkswagen Tiguan mavi 2020 model günlüğü 245 tl"},
-                new Car{CarId=1,BrandId=2,ColorId=4,ModelYear="2019",DailyPrice=245,Description="Binek Mercedes A 180 AMG beyaz 2019 model günlüğü 245 tl"},
-                new Car{CarId=2,BrandId=4,ColorId=1,ModelYear="2019",DailyPrice=318,Description="Ticari Renault Kangoo kırmızı 2019 model günlüğü 318 tl"},
-                new Car{CarId=2,BrandId=3,ColorId=4,ModelYear="2019",DailyPrice=318,Description="Ticari Volkswagen Caddy beyaz 2019 model günlüğü 318 tl"},
-                new Car{CarId=3,BrandId=2,ColorId=2,ModelYear="2020",DailyPrice=350,Description="Servis Mercedes Sprinter siyah 2020 model günlüğü 350 tl"},
-                new Car{CarId=3,BrandId=3,ColorId=2,ModelYear="2021",DailyPrice=350,Description="Servis Volkswagen  Transporter siyah 2021 model günlüğü 350 tl"},
+                new Car{CarId=1, BrandId=1, ColorId=1, DailyPrice=129, Description="Ekonomik", ModelYear=2010},
+                new Car{CarId=2, BrandId=2, ColorId=1, DailyPrice=215, Description="Orta Sınıf", ModelYear=2015},
+                new Car{CarId=3, BrandId=3, ColorId=2, DailyPrice=349, Description="Lux Sınıf", ModelYear=2018},
+                new Car{CarId=4, BrandId=4, ColorId=3, DailyPrice=289, Description="Suv", ModelYear=2018},
+                new Car{CarId=5, BrandId=2, ColorId=2, DailyPrice=990, Description="Premium", ModelYear=2020},
             };
         }
 
@@ -33,7 +32,7 @@ namespace DataAccess.Concrete.InMemory
 
         public void Delete(Car car)
         {
-            Car carToDelete = _cars.SingleOrDefault(c => c.CarId == car.CarId && c.BrandId == car.BrandId && c.ColorId == car.ColorId);
+            Car carToDelete = _cars.SingleOrDefault(car => car.CarId == car.CarId);
             _cars.Remove(carToDelete);
         }
 
@@ -52,6 +51,11 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public List<Car> GetById(int id)
+        {
+            return _cars.Where(car => car.CarId == id).ToList();
+        }
+
         public List<CarDetailDto> GetCarDetails()
         {
             throw new NotImplementedException();
@@ -59,12 +63,11 @@ namespace DataAccess.Concrete.InMemory
 
         public void Update(Car car)
         {
-            Car carToUpdate = _cars.SingleOrDefault(c => c.CarId == car.CarId && c.BrandId == car.BrandId && c.ColorId == car.ColorId);
-            carToUpdate.CarId = car.CarId;
-            carToUpdate.ModelYear = car.ModelYear;
+            Car carToUpdate = _cars.SingleOrDefault(car => car.CarId == car.CarId);
+            carToUpdate.BrandId = car.BrandId;
+            carToUpdate.ColorId = car.ColorId;
             carToUpdate.DailyPrice = car.DailyPrice;
             carToUpdate.Description = car.Description;
-
         }
     }
 }

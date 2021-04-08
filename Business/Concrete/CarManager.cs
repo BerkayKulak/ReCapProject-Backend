@@ -12,7 +12,6 @@ namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
-
         ICarDal _carDal;
 
         public CarManager(ICarDal carDal)
@@ -20,20 +19,31 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        public IResult Add(Car car)
+        {
+            if (car.DailyPrice > 10 && car.CarName.Length > 5)
+            {
+                _carDal.Add(car);
+                return new SuccessResult(Messages.CarAdded);
+            }
+
+            return new ErrorResult(Messages.CarNameInvalid);
+        }
+
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            return new SuccessResult(Messages.CarDeleted);
+            return new SuccessResult(Messages.Deleted);
         }
 
         public IDataResult<List<Car>> GetAll()
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
-        }
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
 
-        public IDataResult<Car> GetById(int id)
-        {
-            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == id));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
@@ -49,21 +59,6 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
-        }
-
-        public IResult Insert(Car car)
-        {
-            if (car.Description.Length >= 2 && car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-            }
-            return new SuccessResult(Messages.CarAdded);
-        }
-
-        public IResult Update(Car car)
-        {
-            _carDal.Update(car);
-            return new SuccessResult(Messages.CarUpdated);
         }
     }
 }
