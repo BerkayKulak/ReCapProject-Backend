@@ -29,5 +29,9 @@ namespace Business.Constants
         public static string CarNotReturned = "Araç dönmedi";
 
         public static string CarReturned = "Araç döndü";
+
+        public static string CarCountError = "Araç en fazla 10 tane olabilir";
+
+        public static string CarNameAlreadyExist = "Bu isimde zaten başka bir araç var";
     }
 }

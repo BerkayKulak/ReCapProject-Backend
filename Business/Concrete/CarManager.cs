@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
+using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -10,6 +12,7 @@ using Entities.DTOs;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -17,15 +20,41 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
+        IColorService _colorService;
+        
 
-        public CarManager(ICarDal carDal)
+
+        public CarManager(ICarDal carDal, IColorService colorService)
         {
             _carDal = carDal;
+            _colorService = colorService;
+
+
         }
 
         [ValidationAspect(typeof(CarValidator))]
+
         public IResult Add(Car car)
         {
+
+
+            //business codes
+
+
+
+            IResult result = BusinessRules.Run(CheckIfCarNameExist(car.CarName),
+                CheckIfCarCountCorrect(car.CarId));
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
+
+
+           
             //Loglama kodları çalışacak
 
             //ValidationTool.Validate(new CarValidator(),car);
@@ -35,13 +64,6 @@ namespace Business.Concrete
             //transaction
             //yetkilendirme
 
-
-            //business codes
-
-            _carDal.Add(car);
-            return new SuccessResult(Messages.CarAdded);
-
-
         }
 
         public IResult Delete(Car car)
@@ -50,6 +72,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Deleted);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
@@ -83,6 +106,28 @@ namespace Business.Concrete
         public DataResult<List<Car>> GetByDailyPrice()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+        }
+
+        private IResult CheckIfCarCountCorrect(int carId)
+        {
+            //Select count(*) from car where carId = 1
+            var result = _carDal.GetAll(c => c.CarId == carId).Count;
+            if (result >= 10)
+            {
+                return new ErrorResult(Messages.CarCountError);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfCarNameExist(string carName)
+        {
+            //Select count(*) from car where carId = 1, Any => var mı demek
+            var result = _carDal.GetAll(c => c.CarName == carName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.CarNameAlreadyExist);
+            }
+            return new SuccessResult();
         }
     }
 }
