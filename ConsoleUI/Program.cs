@@ -13,13 +13,13 @@ namespace ConsoleUI
         {
 
 
-            UserTest();
+           // UserTest();
 
-            CustomerTest();
+            //CustomerTest();
 
-            RentalTest();
+            //RentalTest();
 
-            GetRentailDetailsTest();
+            //GetRentailDetailsTest();
 
 
 
@@ -263,7 +263,7 @@ namespace ConsoleUI
         }*/
 
 
-
+        /*
         private static void RentalTest()
         {
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
@@ -376,7 +376,7 @@ namespace ConsoleUI
             {
                 Console.WriteLine(car.ModelYear + " " + car.Description + " " + car.CarName);
             }
-        }
+        }*/
 
 
 

@@ -33,5 +33,6 @@ namespace Business.Constants
         public static string CarCountError = "Araç en fazla 10 tane olabilir";
 
         public static string CarNameAlreadyExist = "Bu isimde zaten başka bir araç var";
+        public static string CarImageCountLimitExceeded = "5 tane arabadan fazla yükleyemezsin";
     }
 }

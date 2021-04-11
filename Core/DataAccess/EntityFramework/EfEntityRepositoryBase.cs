@@ -5,11 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-
-
 namespace Core.DataAccess.EntityFramework
 {
-    // hangi tabloyu verirsem onun repository olcak
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
         where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
@@ -40,7 +37,6 @@ namespace Core.DataAccess.EntityFramework
             {
                 return context.Set<TEntity>().SingleOrDefault(filter);
             }
-
         }
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
@@ -50,6 +46,7 @@ namespace Core.DataAccess.EntityFramework
                 return filter == null
                     ? context.Set<TEntity>().ToList()
                     : context.Set<TEntity>().Where(filter).ToList();
+
             }
         }
 
