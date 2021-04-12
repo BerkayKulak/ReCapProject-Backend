@@ -3,6 +3,8 @@ using Business.BusinessAspects.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -36,6 +38,7 @@ namespace Business.Concrete
         //Claim
         [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
             //business codes
@@ -71,12 +74,15 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
             return new SuccessResult(Messages.Deleted);
         }
 
+
+        [CacheAspect] 
         public IDataResult<List<Car>> GetAll()
         {
             if (DateTime.Now.Hour == 22)
@@ -126,6 +132,21 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.CarNameAlreadyExist);
             }
             return new SuccessResult();
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+
+            Add(car);
+            if (car.DailyPrice < 10)
+            {
+                throw new Exception("");
+            }
+           
+            Add(car);
+
+            return null;
         }
     }
 }
