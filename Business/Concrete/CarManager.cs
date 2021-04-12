@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
@@ -33,15 +34,11 @@ namespace Business.Concrete
         }
 
         //Claim
-        [SecuredOperation("car.add")]
+        [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-
-
             //business codes
-
-
 
             IResult result = BusinessRules.Run(CheckIfCarNameExist(car.CarName),
                 CheckIfCarCountCorrect(car.CarId));
