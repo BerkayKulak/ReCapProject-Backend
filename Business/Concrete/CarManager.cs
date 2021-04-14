@@ -4,6 +4,7 @@ using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
@@ -132,6 +133,13 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.CarNameAlreadyExist);
             }
             return new SuccessResult();
+        }
+
+        [CacheAspect]
+        [PerformanceAspect(5)]
+        public IDataResult<Car> GetById(int carId)
+        {
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == carId));
         }
 
         [TransactionScopeAspect]
