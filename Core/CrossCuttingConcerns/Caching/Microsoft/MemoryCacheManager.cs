@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace Core.CrossCuttingConcerns.Caching.Microsoft
 {
+    //
     public class MemoryCacheManager : ICacheManager
     {
         IMemoryCache _memoryCache;
