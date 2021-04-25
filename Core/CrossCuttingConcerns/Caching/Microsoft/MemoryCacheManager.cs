@@ -23,6 +23,7 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
             _memoryCache.Set(key, value, TimeSpan.FromMinutes(duration));
         }
 
+        //
         public T Get<T>(string key)
         {
             return _memoryCache.Get<T>(key);
