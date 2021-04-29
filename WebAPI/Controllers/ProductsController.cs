@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
         {
             // Swagger
             // dependency chain--
-            Thread.Sleep(5000);
+            //Thread.Sleep(1000);
             var result = _carService.GetAll();
             if (result.Success)
             {
@@ -74,6 +74,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
 
         }
+
         [HttpGet("getcarsbycolorid")]
         public IActionResult GetAllByColorId(int colorId)
         {
@@ -86,6 +87,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
 
         }
+
         [HttpGet("getcardetails")]
         public IActionResult GetCarDetails()
         {
@@ -97,7 +99,29 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        
+        [HttpGet("getcardetailsbycarid")]
+        public IActionResult GetCarDetailsByCarId(int carId)
+        {
+            var result = _carService.GetCarDetailsByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
+        [HttpGet("getdtobrandandcolorid")]
+        public IActionResult GetDtoBrandAndColorId(int brandId, int colorId)
+        {
+            var result = _carService.GetDtoBrandAndColorId(brandId, colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
 
 
     }

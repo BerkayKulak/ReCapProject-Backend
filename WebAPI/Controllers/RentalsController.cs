@@ -63,7 +63,7 @@ namespace WebAPI.Controllers
 
         }
 
-        [HttpDelete("delete")]
+        [HttpPost("delete")]
         public IActionResult Delete(Rental rental)
         {
             var result = _rentalService.Delete(rental);
@@ -91,8 +91,8 @@ namespace WebAPI.Controllers
             }
 
         }
-        [HttpGet("getrentaldetails")]
-        public IActionResult GetCarDetails()
+        [HttpGet("getrentalldetails")]
+        public IActionResult GetRentalDetails()
         {
             var result = _rentalService.GetRentalDetails();
             if (result.Success)

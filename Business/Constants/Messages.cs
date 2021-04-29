@@ -50,5 +50,22 @@ namespace Business.Constants
         public static string UserUpdated = "Kullanıcı Güncellendi";
         public static string UserUpdate = "Kullanıcı güncellendi";
         public static string UserListed = "Kullanıcılar listelendi";
+        public static string ImageAdded = "resmim eklendi";
+        public static string ImageDeleted = "resmim silindi";
+        public static string ImagesListed = "resmim listelendi";
+        public static string ImageUpdated = "resmim güncellendi";
+        public static string CarImageLimitExceeded = "resmim eklendi";
+        internal static string Success;
+
+        public static string CarImageAdded = "Araba resmi eklendi";
+        public static string CarImageUpdated = "Araba resmi güncellendi";
+        public static string CarImageDeleted = "Araba resmi silindi";
+        public static string CarImageNameInvalid = "Araba resmi ismi geçersiz";
+        public static string CarImagesListed = "Araba resmi listelendi";
+        public static string CarImageCountOfCarError = "Bir aracın en fazla 5 resmi olabilir";
+       
+        public static string ImageNotFound = "Image not found";
+     
+        public static string NoResultForThisFilter = "Bu filtre için sonuç dönmedi";
     }
 }
