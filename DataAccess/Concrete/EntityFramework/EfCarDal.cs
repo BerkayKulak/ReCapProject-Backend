@@ -13,32 +13,33 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, RentACarContext>, ICarDal
     {
-        public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
+        public List<CarDetailDto> GetCarDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
             using (RentACarContext context = new RentACarContext())
             {
-                var result = from c in filter is null ? context.Cars : context.Cars.Where(filter)
+
+
+                var result = from c in context.Cars
                              join b in context.Brands
                              on c.BrandId equals b.BrandId
                              join cl in context.Colors
                              on c.ColorId equals cl.ColorId
-
                              select new CarDetailDto
                              {
+                                 ColorId = cl.ColorId,
                                  CarId = c.CarId,
-                                 ColorName = cl.ColorName,
-                                 BrandName = b.BrandName,
+                                 BrandId = b.BrandId,
                                  CarName = c.CarName,
+                                 BrandName = b.BrandName,
+                                 ColorName = cl.ColorName,
                                  DailyPrice = c.DailyPrice,
-                                 BrandId = c.BrandId,
-                                 ColorId = c.ColorId
-
+                                 ModelYear = c.ModelYear,
+                                 ImagePath = (from i in context.CarImages where i.CarId == c.CarId select i.ImagePath).ToList()
                              };
-                return result.ToList();
+                var a = result.ToList();
+                return filter == null ? result.ToList() : result.Where(filter).ToList();
             }
-
         }
-
         public List<CarDetailDto> GetCarsDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
             using (RentACarContext context = new RentACarContext())
