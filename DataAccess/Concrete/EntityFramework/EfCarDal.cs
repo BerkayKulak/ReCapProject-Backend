@@ -28,6 +28,7 @@ namespace DataAccess.Concrete.EntityFramework
                              {
                                  ColorId = cl.ColorId,
                                  CarId = c.CarId,
+                                 Description = c.Description,
                                  BrandId = b.BrandId,
                                  CarName = c.CarName,
                                  BrandName = b.BrandName,
