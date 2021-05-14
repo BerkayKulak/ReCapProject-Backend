@@ -55,7 +55,7 @@ namespace Business.Constants
         public static string ImagesListed = "resmim listelendi";
         public static string ImageUpdated = "resmim güncellendi";
         public static string CarImageLimitExceeded = "resmim eklendi";
-        internal static string Success;
+       // public static string Success = "İşlem Başarılı";
 
         public static string CarImageAdded = "Araba resmi eklendi";
         public static string CarImageUpdated = "Araba resmi güncellendi";
@@ -67,5 +67,15 @@ namespace Business.Constants
         public static string ImageNotFound = "Image not found";
      
         public static string NoResultForThisFilter = "Bu filtre için sonuç dönmedi";
+
+        public static string RentalError = "Kiralama hatası";
+        public static string CarIsNotAvailable = "araba mevcut değil";
+        public static string ErrorRentalUpdate = "Kiralama Güncellemesi Hatası";
+        public static string SuccessRentalUpdate = "başarılı kiralama güncellemesi";
+        public static string RentalUpdated = "kiralama verisi güncellemesi";
+        public static string RentalDeleted =  "kiralama verisi silindi";
+        public static string RentalAdded = "kiralama verisi eklendi";
+        public static string creditCardAdded = "Kredi Kartı Eklendi";
+        public static string creditCardDeleted = "Kredi Kartı Silindi";
     }
 }
