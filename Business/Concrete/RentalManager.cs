@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.Constants;
+using Business.Constant;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
@@ -10,7 +10,6 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -56,7 +55,7 @@ namespace Business.Concrete
 
         public IDataResult<Rental> GetById(int Id)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(re => re.RentalId == Id));
+            return new SuccessDataResult<Rental>(_rentalDal.Get(re => re.Id == Id));
         }
 
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
@@ -125,5 +124,6 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(r => r.CustomerId == customerId));
         }
+
     }
 }

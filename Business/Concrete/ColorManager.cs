@@ -1,11 +1,8 @@
 ﻿using Business.Abstract;
-using Business.Constants;
-using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac.Validation;
+using Business.Constant;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,39 +18,32 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        [ValidationAspect(typeof(ColorValidator))]
-        public IResult Add(Entities.Concrete.Color color)
+        public IResult Add(Color color)
         {
             _colorDal.Add(color);
-            return new SuccessResult(Messages.Added);
+            return new SuccessResult(Messages.ColorAdded);
         }
 
-        public IResult Delete(Entities.Concrete.Color color)
+        public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
-            return new SuccessResult(Messages.Deleted);
+            return new SuccessResult(Messages.ColorDeleted);
         }
 
-        public IDataResult<List<Entities.Concrete.Color>> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return new SuccessDataResult<List<Entities.Concrete.Color>>(_colorDal.GetAll(), Messages.Added);
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
         }
 
-        public IDataResult<List<Entities.Concrete.Color>> GetAllById(int colorId)
+        public IDataResult<Color> GetById(int id)
         {
-            return new SuccessDataResult<List<Entities.Concrete.Color>>(_colorDal.GetAll(), Messages.Added);
+            return new SuccessDataResult<Color>(_colorDal.Get(co => co.Id == id));
         }
 
-        public IDataResult<List<ColorDetailDto>> GetColorDetails()
-        {
-            return new SuccessDataResult<List<ColorDetailDto>>(_colorDal.GetColorDetails());
-        }
-
-        public IResult Update(Entities.Concrete.Color color)
+        public IResult Update(Color color)
         {
             _colorDal.Update(color);
-            return new SuccessResult(Messages.Updated);
+            return new SuccessResult(Messages.ColorUpdated);
         }
-
     }
 }

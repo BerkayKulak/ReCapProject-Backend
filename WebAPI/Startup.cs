@@ -2,6 +2,7 @@ using Business.Abstract;
 using Business.Concrete;
 using Core.DependencyResolvers;
 using Core.Extensions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
@@ -36,31 +37,9 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            //Autofac, Ninject, CastleWindsow, StructureMap, LightInject, DryInject -->IoC Container
-            //AOP 
             services.AddControllers();
-
-
-            //services.AddSingleton<ICarService,CarManager>();// biz yazdýk
-            //services.AddSingleton<ICarDal, EfCarDal>();
-
             //services.AddSingleton<IBrandService, BrandManager>();
-            //services.AddSingleton<IBrandDal, EfBrandDal>();
-
-            //services.AddSingleton<IColorService, ColorManager>();
-            //services.AddSingleton<IColorDal, EfColorDal>();
-
-            //services.AddSingleton<ICustomerService, CustomerManager>();
-            //services.AddSingleton<ICustomerDal, EfCustomerDal>();
-
-            //services.AddSingleton<IRentalService, RentalManager>();
-            //services.AddSingleton<IRentalDal, EfRentalDal>();
-
-            //services.AddSingleton<IUserService, UserManager>();
-            //services.AddSingleton<IUserDal, EfUserDal>();
-
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddSingleton<ICarService, CarManager>();
 
             services.AddCors();
 
@@ -80,8 +59,8 @@ namespace WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
-            services.AddDependencyResolvers(new Core.Utilities.IoC.ICoreModule[] {
 
+            services.AddDependencyResolvers(new ICoreModule[] {
 
                 new CoreModule()
             });
@@ -95,7 +74,9 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            app.ConfigureCustomExceptionMiddleware();
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
@@ -106,7 +87,7 @@ namespace WebAPI
             app.UseAuthentication();
 
             app.UseAuthorization();
-            //
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

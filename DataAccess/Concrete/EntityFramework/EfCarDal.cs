@@ -1,13 +1,13 @@
-﻿using Core.DataAccess.EntityFramework;
-using DataAccess.Abstract;
+﻿using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.DTOs;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Core.DataAccess.EntityFramework;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -17,58 +17,55 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (RentACarContext context = new RentACarContext())
             {
-
-
-                var result = from c in context.Cars
-                             join b in context.Brands
-                             on c.BrandId equals b.BrandId
-                             join cl in context.Colors
-                             on c.ColorId equals cl.ColorId
-                             select new CarDetailDto
+                var result = from ca in context.Cars
+                             join br in context.Brands
+                             on ca.BrandId equals br.Id
+                             join co in context.Colors
+                             on ca.ColorId equals co.Id
+                             select new CarDetailDto()
                              {
-                                 ColorId = cl.ColorId,
-                                 CarId = c.CarId,
-                                 Description = c.Description,
-                                 BrandId = b.BrandId,
-                                 CarName = c.CarName,
-                                 BrandName = b.BrandName,
-                                 ColorName = cl.ColorName,
-                                 DailyPrice = c.DailyPrice,
-                                 ModelYear = c.ModelYear,
-                                 ImagePath = (from i in context.CarImages where i.CarId == c.CarId select i.ImagePath).ToList()
+                                 ImagePath = (from x in context.CarImages where x.CarId == ca.Id select x.ImagePath).FirstOrDefault(),
+                                 BrandId = ca.BrandId,
+                                 ColorId = ca.ColorId,
+                                 Id = ca.Id,
+                                 CarName = ca.CarName,
+                                 BrandName = br.BrandName,
+                                 ColorName = co.ColorName,
+                                 DailyPrice = ca.DailyPrice,
+                                 Description = ca.Description,
+                                 ModelYear = ca.ModelYear
                              };
-                var a = result.ToList();
+
                 return filter == null ? result.ToList() : result.Where(filter).ToList();
             }
+
         }
-        public List<CarDetailDto> GetCarsDetails(Expression<Func<CarDetailDto, bool>> filter = null)
+
+        public CarDetailDto GetCarDetailsById(Expression<Func<CarDetailDto, bool>> filter)
         {
             using (RentACarContext context = new RentACarContext())
             {
-                var result = from c in context.Cars
-                             join b in context.Brands
-                             on c.BrandId equals b.BrandId
-                             join cl in context.Colors
-                             on c.ColorId equals cl.ColorId
-                             select new CarDetailDto
+                var result = from ca in context.Cars
+                             join br in context.Brands
+                             on ca.BrandId equals br.Id
+                             join co in context.Colors
+                             on ca.ColorId equals co.Id
+                             select new CarDetailDto()
                              {
-                                 CarId = c.CarId,
-                                 BrandId = b.BrandId,
-                                 BrandName = b.BrandName,
-                                 ColorId = cl.ColorId,
-                                 ColorName = cl.ColorName
+                                 ImagePath = (from x in context.CarImages where x.CarId == ca.Id select x.ImagePath).FirstOrDefault(),
+                                 BrandId = ca.BrandId,
+                                 ColorId = ca.ColorId,
+                                 Id = ca.Id,
+                                 CarName = ca.CarName,
+                                 BrandName = br.BrandName,
+                                 ColorName = co.ColorName,
+                                 DailyPrice = ca.DailyPrice,
+                                 Description = ca.Description,
+                                 ModelYear = ca.ModelYear
                              };
 
-                return filter != null ? result.Where(filter).ToList() : result.ToList();
+                return result.FirstOrDefault(filter);
             }
         }
     }
 }
-
-
-
-
-
-
-
-

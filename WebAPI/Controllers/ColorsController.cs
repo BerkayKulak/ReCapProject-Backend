@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,10 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class ColorsController : ControllerBase
     {
         IColorService _colorService;
@@ -30,41 +33,33 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getallbyıd")]
-        public IActionResult GetAllById(int id)
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
-            var result = _colorService.GetAllById(id);
+            var result = _colorService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result);
-        }
 
-        [HttpGet("getcolordetails")]
-        public IActionResult GetColorDetails()
-        {
-            var result = _colorService.GetColorDetails();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
             return BadRequest(result);
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Entities.Concrete.Color color)
+
+        public IActionResult Add(Color color)
         {
             var result = _colorService.Add(color);
             if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Entities.Concrete.Color color)
+
+        public IActionResult Delete(Color color)
         {
             var result = _colorService.Delete(color);
             if (result.Success)
@@ -75,7 +70,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Entities.Concrete.Color color)
+
+        public IActionResult Update(Color color)
         {
             var result = _colorService.Update(color);
             if (result.Success)
@@ -84,5 +80,6 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
     }
 }

@@ -18,19 +18,19 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from re in context.Rentals
                              join ca in context.Cars
-                             on re.CarId equals ca.CarId
+                             on re.CarId equals ca.Id
                              join cu in context.Customers
-                             on re.CustomerId equals cu.CustomerId
+                             on re.CustomerId equals cu.Id
                              join br in context.Brands
-                             on ca.BrandId equals br.BrandId
+                             on ca.BrandId equals br.Id
                              join us in context.Users
                              on cu.UserId equals us.Id
 
                              select new RentalDetailDto
                              {
                                  ModelYear = ca.ModelYear,
-                                 CarId = ca.CarId,
-                                 Id = re.RentalId,
+                                 CarId = ca.Id,
+                                 Id = re.Id,
                                  CarName = ca.CarName,
                                  RentDate = re.RentDate,
                                  ReturnDate = re.ReturnDate,
@@ -40,7 +40,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  LastName = us.LastName,
                                  DailyPrice = ca.DailyPrice,
                                  Description = ca.Description,
-                                 CustomerId = cu.CustomerId
+                                 CustomerId = cu.Id
                              };
 
                 return filter == null ? result.ToList() : result.Where(filter).ToList();

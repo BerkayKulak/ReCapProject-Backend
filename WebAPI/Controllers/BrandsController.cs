@@ -1,17 +1,20 @@
 ﻿using Business.Abstract;
+using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
-    public class BrandsController:ControllerBase
+    public class BrandsController : ControllerBase
     {
         IBrandService _brandService;
 
@@ -28,29 +31,23 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            else
-            {
-                return BadRequest(result);
-            }
-
+            return BadRequest(result);
         }
 
-
-        [HttpGet("getById")]
-        public IActionResult GetById(int brandid)
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
-            var result = _brandService.GetAllById(brandid);
+            var result = _brandService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
             }
-            else
-            {
-                return BadRequest(result);
-            }
+
+            return BadRequest(result);
         }
 
         [HttpPost("add")]
+
         public IActionResult Add(Brand brand)
         {
             var result = _brandService.Add(brand);
@@ -58,14 +55,11 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            else
-            {
-                return BadRequest(result);
-            }
-
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]
+
         public IActionResult Delete(Brand brand)
         {
             var result = _brandService.Delete(brand);
@@ -73,13 +67,11 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            else
-            {
-                return BadRequest(result);
-            }
+            return BadRequest(result);
         }
 
         [HttpPost("update")]
+
         public IActionResult Update(Brand brand)
         {
             var result = _brandService.Update(brand);
@@ -87,13 +79,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            else
-            {
-                return BadRequest(result);
-            }
-
+            return BadRequest(result);
         }
-
-
     }
 }

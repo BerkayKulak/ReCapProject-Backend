@@ -5,77 +5,67 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Business.Constants
+namespace Business.Constant
 {
-    // mesaj yazcaksak newlemicez
     public static class Messages
     {
-        public static string CarAdded = "Araç eklendi";
+        public static string CarAdded = "Araç başarı ile eklendi";
+        public static string CarPriceInvalid = "Ekleme başarısız : Araba günlük fiyatı 0 TL üzerinde olmalıdır";
+        public static string MaintenanceTime = "Sistem bakımdadır";
 
-        public static string CarNameInvalid = "Geçersiz araç";
+        public static string CarListed = "Araçlar listelendi";
+        public static string CarDeleted = "Araç başarı ile silindi";
+        public static string CarUpdated = "Araç başarı ile güncellendi";
+        public static string CarUpdateInvalid = "Güncelleme başarısız : Araba günlük fiyatı 0 TL üzerinde olmalıdır";
+        public static string CarDetailDtoMessage = "Araba detayları başarı ile getirildi";
+        public static string CarNameInvalid = "Ekleme başarısız : Araba ismi 2 karakterden uzun olmalıdır";
 
-        public static string MaintenanceTime = "Sistem bakımda";
+        public static string BrandAdded = "Marka başarı ile eklendi";
+        public static string BrandDeleted = "Marka başarı ile silindi";
+        public static string BrandUpdated = "Marka başarı ile güncellendi";
+        public static string BrandNameInvalid = "Ekleme başarısız : Marka ismi 2 karakterden uzun olmalıdır";
+        public static string BrandUpdateInvalid = "Güncelleme başarısız : Marka ismi 2 karakterden uzun olmalıdır";
 
-        public static string CarsListed = "Araçlar listelendi";
+        public static string ColorAdded = "Renk başarı ile eklendi";
+        public static string ColorDeleted = "Renk başarı ile silindi";
+        public static string ColorUpdated = "Renk başarı ile güncellendi";
 
-        public static string Deleted = "Silindi";
+        public static string CustomerAdded = "Müşteri başarı ile eklendi";
+        public static string CustomerDeleted = "Müşteri başarı ile silindi";
+        public static string CustomerUpdated = "Müşteri başarı ile güncellendi";
 
-        public static string Updated = "Güncellendi";
+        public static string UserAdded = "Kullanıcı başarı ile eklendi";
+        public static string UserDeleted = "Kullanıcı başarı ile silindi";
+        public static string UserUpdated = "Kullanıcı başarı ile güncellendi";
 
-        public static string Added = "Eklendi";
+        public static string RentalAdded = "Kiralama bilgisi başarı ile eklendi";
+        public static string RentalError = "Araç şu anda kiralanamaz";
+        public static string RentalDeleted = "Kiralama bilgisi başarı ile silindi";
+        public static string RentalUpdated = "Kiralama bilgisi başarı ile güncellendi";
+        public static string ErrorRentalUpdate = "Araç şu anda kirada değil, sonlandırma başarısız";
+        public static string SuccessRentalUpdate = "Kiralama başarı ile sonlandırıldı";
 
-        public static string Listed = "Listelendi";
+        public static string ImageAdded = "Resim başarı ile eklendi";
+        public static string ImageDeleted = "Resim başarı ile silindi";
+        public static string ImageUpdated = "Resim başarı ile güncelledi";
 
-        public static string CarRented = "Araç kiralandı";
+        public static string CountOfImageLimitError = "Bir araca ait en fazla 5 resim eklenebilir";
+        public static string AuthorizationDenied = "Yetkiniz Yok";
 
-        public static string CarNotReturned = "Araç dönmedi";
-
-        public static string CarReturned = "Araç döndü";
-
-        public static string CarCountError = "Araç en fazla 10 tane olabilir";
-
-        public static string CarNameAlreadyExist = "Bu isimde zaten başka bir araç var";
-
-        public static string CarImageCountLimitExceeded = "5 tane arabadan fazla yükleyemezsin";
-
-        public  static string AuthorizationDenied = "Yetkiniz yok";
-        public static string UserRegistered = "Kayıt oldu";
-        public static string UserNotFound = "Kullanıcı Bulunamadı";
+        public static string UserRegistered = "Kullanıcı kaydoldu ";
+        public static string UserNotFound = "Kullanıcı bulunamadı";
         public static string PasswordError = "Parola Hatası";
-        public static string SuccessfulLogin ="Başarılı Giriş";
-        public static string UserAlreadyExists = "Kullanıcı Mevcut";
-        public static string AccessTokenCreated = "Access Token oluturuldu";
-        public static string UserAdded = "Kullanıcı Eklendi";
-        public static string UserDeleted = "Kullanıcı Silindi";
-        public static string UserUpdated = "Kullanıcı Güncellendi";
-        public static string UserUpdate = "Kullanıcı güncellendi";
-        public static string UserListed = "Kullanıcılar listelendi";
-        public static string ImageAdded = "resmim eklendi";
-        public static string ImageDeleted = "resmim silindi";
-        public static string ImagesListed = "resmim listelendi";
-        public static string ImageUpdated = "resmim güncellendi";
-        public static string CarImageLimitExceeded = "resmim eklendi";
-       // public static string Success = "İşlem Başarılı";
+        public static string AccessTokenCreated = "Kayıt Oluşturuldu";
+        public static string SuccessfulLogin = "Başarıyla giriş yapıldı";
+        public static string UserAlreadyExists = "Kullanıcı zaten mevcut";
 
-        public static string CarImageAdded = "Araba resmi eklendi";
-        public static string CarImageUpdated = "Araba resmi güncellendi";
-        public static string CarImageDeleted = "Araba resmi silindi";
-        public static string CarImageNameInvalid = "Araba resmi ismi geçersiz";
-        public static string CarImagesListed = "Araba resmi listelendi";
-        public static string CarImageCountOfCarError = "Bir aracın en fazla 5 resmi olabilir";
-       
-        public static string ImageNotFound = "Image not found";
-     
-        public static string NoResultForThisFilter = "Bu filtre için sonuç dönmedi";
+        public static string creditCardAdded = "Kredi kartı başarı ile eklendi";
 
-        public static string RentalError = "Kiralama hatası";
-        public static string CarIsNotAvailable = "araba mevcut değil";
-        public static string ErrorRentalUpdate = "Kiralama Güncellemesi Hatası";
-        public static string SuccessRentalUpdate = "başarılı kiralama güncellemesi";
-        public static string RentalUpdated = "kiralama verisi güncellemesi";
-        public static string RentalDeleted =  "kiralama verisi silindi";
-        public static string RentalAdded = "kiralama verisi eklendi";
-        public static string creditCardAdded = "Kredi Kartı Eklendi";
-        public static string creditCardDeleted = "Kredi Kartı Silindi";
+        public static string creditCardDeleted = "Kredi kartı başarı ile silindi";
+        public static string findeksScoreAdded = "Findeks skorunuz başarı ile eklendi";
+        public static string findeksScoreDelete = "Findeks skorunuz başarı ile silindi";
+        public static string findeksScoreUpdate = "Findeks skorunuz başarı ile güncellendi";
+
+        public static string CarIsNotAvailable { get; internal set; }
     }
 }

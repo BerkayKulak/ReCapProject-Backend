@@ -1,5 +1,4 @@
 ﻿using Core.Utilities.Interceptors;
-using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -7,13 +6,13 @@ using System.Text;
 using Castle.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
 using Core.Extensions;
-using Business.Constants;
+using Business.Constant;
+using Core.Utilities.IoC;
 
 namespace Business.BusinessAspects.Autofac
 {
     public class SecuredOperation : MethodInterception
     {
-        //JWT
         private string[] _roles;
         private IHttpContextAccessor _httpContextAccessor;
 
